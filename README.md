@@ -8,7 +8,7 @@
 
 `email-verifier` exposes the core service to verify an email. You can get that using:
 
-```go
+```shell
 go get github.com/hsnice16/email-verifier/core/service
 ```
 
