@@ -1,6 +1,6 @@
 # Email Verifier
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/hsnice16/email-verifier@v0.2.0/core/service#pkg-overview)](https://pkg.go.dev/github.com/hsnice16/email-verifier@v0.1.0/core/service)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/hsnice16/email-verifier@v0.2.0/core/service#pkg-overview)](https://pkg.go.dev/github.com/hsnice16/email-verifier@v0.2.0/core/service)
 
 > Enter an email and verify if it's a valid email or not.
 
