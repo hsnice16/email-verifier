@@ -18,6 +18,24 @@ func TestVerifyEmailCorrect(t *testing.T) {
 	t.Logf("String %+v is a valid email.", email)
 }
 
+
+// TestVerifyEmailCorrectWithSpecialChars calls service.VerifyEmail with a correct value
+func TestVerifyEmailCorrectWithSpecialChars(t *testing.T) {
+	email := "x+y.-z@example.abc.in"
+	isValid, err := VerifyEmail(email, VerifyEmailOptions{ValidateRegex: true})
+
+	if isValid == false {
+		t.Fatalf("String %+v is not a valid email.", email)
+	}
+
+	if err != nil {
+		t.Fatalf("Err %+v", err)
+	}
+
+	t.Logf("String %+v is a valid email.", email)
+}
+
+
 // TestVerifyEmailEmpty calls service.VerifyEmail with an empty value
 func TestVerifyEmailEmpty(t *testing.T) {
 	email := ""
@@ -33,6 +51,18 @@ func TestVerifyEmailEmpty(t *testing.T) {
 // TestVerifyEmailIncorrect calls service.VerifyEmail with an incorrect value
 func TestVerifyEmailIncorrect(t *testing.T) {
 	email := "a@xyz"
+	isValid, err := VerifyEmail(email, VerifyEmailOptions{ValidateRegex: true})
+
+	if isValid == true {
+		t.Fatalf("String %+v is a valid email.", email)
+	}
+
+	t.Logf("%+v. String %+v is not a valid email.", err.Error(), email)
+}
+
+// TestVerifyEmailIncorrectWithoutAtTheRate calls service.VerifyEmail with an incorrect value
+func TestVerifyEmailIncorrectWithoutAtTheRate(t *testing.T) {
+	email := "axyzgmail.com"
 	isValid, err := VerifyEmail(email, VerifyEmailOptions{ValidateRegex: true})
 
 	if isValid == true {

@@ -26,7 +26,7 @@ func VerifyEmail(email string, options VerifyEmailOptions) (bool, error) {
 }
 
 func validateRegex(email string) error {
-	validateEmailRegexString := `^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$`
+	validateEmailRegexString := `^[\w\+\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$`
 	matched, err := regexp.MatchString(validateEmailRegexString, email)
 
 	if(err != nil) {
