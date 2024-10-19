@@ -1,6 +1,6 @@
 # Email Verifier
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/hsnice16/email-verifier@v0.1.0/core/service#pkg-overview)](https://pkg.go.dev/github.com/hsnice16/email-verifier@v0.1.0/core/service)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/hsnice16/email-verifier@v0.2.0/core/service#pkg-overview)](https://pkg.go.dev/github.com/hsnice16/email-verifier@v0.1.0/core/service)
 
 > Enter an email and verify if it's a valid email or not.
 
@@ -24,22 +24,33 @@ import (
 )
 
 func main() {
-  fmt.Println("Hello, Email Verifier")
+  fmt.Printf("Hello, Email Verifier\n\n")
 
   email := "xyz@"
-  result, _ := service.VerifyEmail(email)
+  result, err := service.VerifyEmail(email, service.VerifyEmailOptions{ValidateRegex: true})
   fmt.Printf("Is %+v a Valid Email?: %v\n", email, result)
+  fmt.Printf("%+v\n\n", err)
 
   email = "xyz@example.com"
-  result, _ = service.VerifyEmail(email)
+  result, err = service.VerifyEmail(email, service.VerifyEmailOptions{
+    ValidateRegex:       true,
+    ValidateMxRecord:    true,
+    ValidateSmtpRunning: true,
+  },
+  )
   fmt.Printf("Is %+v a Valid Email?: %v\n", email, result)
+  fmt.Println(err)
 }
 ```
 
 ```text
 Hello, Email Verifier
+
 Is xyz@ a Valid Email?: false
-Is xyz@example.com a Valid Email?: true
+Invalid Email Address: Regex check failed
+
+Is xyz@example.com a Valid Email?: false
+Invalid Email Address: Mx record not found
 ```
 
 ---
