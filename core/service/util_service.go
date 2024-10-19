@@ -2,12 +2,17 @@
 package service
 
 import (
-	"errors"
+	"net"
 	"regexp"
+	"strings"
+
+	"github.com/hsnice16/email-verifier/constant"
 )
 
+// VerifyEmailOptions struct to hold VerifyEmail options
 type VerifyEmailOptions struct {
-	ValidateRegex bool
+	ValidateRegex    bool // Validates email address using regex
+	ValidateMxRecord bool // Validates MX records are present on DNS
 }
 
 // VerifyEmail verifies if the passed email string argument is
@@ -16,7 +21,15 @@ type VerifyEmailOptions struct {
 func VerifyEmail(email string, options VerifyEmailOptions) (bool, error) {
 	if options.ValidateRegex {
 		err := validateRegex(email)
-		
+
+		if err != nil {
+			return false, err
+		}
+	}
+
+	if options.ValidateMxRecord {
+		err := validateMxRecord(email)
+
 		if err != nil {
 			return false, err
 		}
@@ -29,13 +42,21 @@ func validateRegex(email string) error {
 	validateEmailRegexString := `^[\w\+\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$`
 	matched, err := regexp.MatchString(validateEmailRegexString, email)
 
-	if(err != nil) {
-		return err
+	if matched == false || err != nil {
+		return constant.FailedRegexCheck
 	}
 
-	if(matched == false) {
-		return errors.New("Invalid Email Address")
+	return nil
+}
+
+func validateMxRecord(email string) error {
+	domain := strings.Split(email, "@")[1]
+	_, err := net.LookupMX(domain)
+
+	if err != nil {
+		return constant.FailedMxRecordCheck
 	}
 
+	// bestMxRecord := mxRecords[0]
 	return nil
 }
