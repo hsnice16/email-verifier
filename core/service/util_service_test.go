@@ -144,3 +144,33 @@ func TestVerifyEmailSmtpServerRunningInCorrect(t *testing.T) {
 	t.Log(err)
 	t.Logf("String %+v is not a valid email.", email)
 }
+
+// TestVerifyEmailDisposableCorrect calls service.VerifyEmail
+// to validate Disposable Email with a correct value
+func TestVerifyEmailDisposableCorrect(t *testing.T) {
+	email := "xyz@gmail.com"
+	isValid, err := VerifyEmail(email, VerifyEmailOptions{ValidateDisposableEmail: true})
+
+	if isValid == false {
+		t.Fatalf("String %+v is not a valid email.", email)
+	}
+
+	if err != nil {
+		t.Fatal(err)
+		t.Fatalf("String %+v is not a valid email.", email)
+	}
+
+	t.Logf("String %+v is a valid email.", email)
+}
+
+func TestVerifyEmailDisposableInCorrect(t *testing.T) {
+	email := "abc@risu.be"
+	isValid, err := VerifyEmail(email, VerifyEmailOptions{ValidateDisposableEmail: true})
+
+	if isValid == true {
+		t.Fatalf("String %+v is a valid email.", email)
+	}
+
+	t.Log(err)
+	t.Logf("String %+v is not a valid email.", email)
+}

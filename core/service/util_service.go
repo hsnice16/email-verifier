@@ -12,9 +12,10 @@ import (
 
 // VerifyEmailOptions struct to hold VerifyEmail options
 type VerifyEmailOptions struct {
-	ValidateRegex       bool // Validates email address using regex
-	ValidateMxRecord    bool // Validates MX records are present on DNS
-	ValidateSmtpRunning bool // Validates SMTP server is running
+	ValidateRegex           bool // Validates email address using regex
+	ValidateMxRecord        bool // Validates MX records are present on DNS
+	ValidateSmtpRunning     bool // Validates SMTP server is running
+	ValidateDisposableEmail bool // Validates if the email address is a disposable email address
 }
 
 // VerifyEmail verifies if the passed email string argument is
@@ -39,6 +40,14 @@ func VerifyEmail(email string, options VerifyEmailOptions) (bool, error) {
 
 	if options.ValidateSmtpRunning {
 		err := ValidateSmtpRunning(email)
+
+		if err != nil {
+			return false, err
+		}
+	}
+
+	if options.ValidateDisposableEmail {
+		err := ValidateDisposableEmail(email)
 
 		if err != nil {
 			return false, err
@@ -92,6 +101,19 @@ func ValidateSmtpRunning(email string) error {
 	err = client.Close()
 	if err != nil {
 		return constant.FailedSmtpClose
+	}
+
+	return nil
+}
+
+// ValidateDisposableEmail validates the email address by checking
+// if the email address is a disposable email address
+func ValidateDisposableEmail(email string) error {
+	domain := strings.Split(email, "@")[1]
+
+	_, isDisposable := constant.DisposableEmailDomains[domain]
+	if isDisposable {
+		return constant.FailedDisposableEmailCheck
 	}
 
 	return nil
