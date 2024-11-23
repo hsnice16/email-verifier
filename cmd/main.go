@@ -8,6 +8,8 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+// @externalDocs.description	pkg.go.dev
+// @externalDocs.url			https://pkg.go.dev/github.com/hsnice16/email-verifier@v0.2.1/core/service
 func main() {
 	app := &cli.App{
 		Name:                 "cmd",
