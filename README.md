@@ -53,6 +53,37 @@ Is xyz@example.com a Valid Email?: false
 Invalid Email Address: Mx record not found
 ```
 
+## Run CLI
+
+- Install our command to the `$GOPATH/bin` directory:
+
+```shell
+go install
+```
+
+<!--
+
+`go build` vs `go install`:
+
+`go build` just compiles the executable file and moves it to the destination.
+`go install` does a little bit more. It moves the executable file to `$GOPATH/bin`
+and caches all non-main packages which are imported to `$GOPATH/pkg`. The cache
+will be used during the next compilation provided the source did not change yet.
+
+-->
+
+- Run our new command
+
+```shell
+cmd
+```
+
+- Start the core service
+
+```shell
+cmd service
+```
+
 ---
 
 If you liked the project then give it a star (⭐️) and consider sponsoring it (❤️).
