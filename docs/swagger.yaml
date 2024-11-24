@@ -1,0 +1,66 @@
+definitions:
+  types.VerifyEmailRequest:
+    properties:
+      email:
+        example: xyz@example.com
+        type: string
+      validate_disposable_email:
+        example: true
+        type: boolean
+      validate_mx_record:
+        example: true
+        type: boolean
+      validate_regex:
+        example: true
+        type: boolean
+      validate_smtp_running:
+        example: true
+        type: boolean
+    required:
+    - email
+    type: object
+  types.VerifyEmailResponse:
+    properties:
+      error:
+        example: Regex check failed
+        type: string
+      valid:
+        example: false
+        type: boolean
+    type: object
+externalDocs:
+  description: pkg.go.dev
+  url: https://pkg.go.dev/github.com/hsnice16/email-verifier@v0.2.1/core/service
+info:
+  contact: {}
+paths:
+  /health:
+    get:
+      responses:
+        "200":
+          description: OK
+      summary: Health Check
+      tags:
+      - General
+  /v1/verify/email:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Email Details
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/types.VerifyEmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Email Verification Status
+          schema:
+            $ref: '#/definitions/types.VerifyEmailResponse'
+      summary: Verify an Email
+      tags:
+      - Service
+swagger: "2.0"
