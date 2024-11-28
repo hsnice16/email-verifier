@@ -1,10 +1,18 @@
-# Email Verifier
+<div align="center">
 
+# ✨ Email Verifier
+
+![Forks](https://img.shields.io/github/forks/hsnice16/email-verifier)
+![Stars](https://img.shields.io/github/stars/hsnice16/email-verifier)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/hsnice16/email-verifier@v0.2.1/core/service#pkg-overview)](https://pkg.go.dev/github.com/hsnice16/email-verifier@v0.2.1/core/service)
 
 > Enter an email and verify if it's a valid email or not.
 
-## Installation
+</div>
+
+---
+
+## ⬇️ Installation
 
 `email-verifier` exposes the core service to verify an email. You can get that using:
 
@@ -12,7 +20,9 @@
 go get github.com/hsnice16/email-verifier/core/service
 ```
 
-## Quickstart
+---
+
+## 🎬 Quickstart
 
 ```go
 package main
@@ -53,9 +63,42 @@ Is xyz@example.com a Valid Email?: false
 Invalid Email Address: Mx record not found
 ```
 
-## Run CLI
+---
 
-- Install our command to the `$GOPATH/bin` directory:
+## ⚙️ Develop Locally
+
+### Pull the code
+
+```shell
+git clone git@github.com:hsnice16/email-verifier.git
+cd email-verifier
+```
+
+### Run in a Docker Container or start the server manually
+
+#### ➡️ Run in a Docker Container
+
+You will need [docker](https://www.docker.com/get-started/) on your local machine for this.
+
+##### • Build the image
+
+```shell
+docker build -t hsnice16/email-verifier:1.0 .
+```
+
+##### • Run container
+
+```shell
+docker run -p 8080:8080 hsnice16/email-verifier:1.0 -- service
+```
+
+<div align="center">
+• • •
+</div>
+
+#### ➡️ Run manually
+
+##### • Install our command to the `$GOPATH/bin` directory
 
 ```shell
 go install
@@ -72,13 +115,13 @@ will be used during the next compilation provided the source did not change yet.
 
 -->
 
-- Run our new command
+##### • Run our new command
 
 ```shell
 cmd
 ```
 
-- Start the core service
+##### • Start the core service
 
 ```shell
 cmd service
@@ -86,4 +129,8 @@ cmd service
 
 ---
 
-If you liked the project then give it a star (⭐️) and consider sponsoring it (❤️).
+## 💚 Sponsor
+
+If you found this project helpful, then do consider sponsoring it - [Sponsor](https://github.com/sponsors/hsnice16)
+
+And, give it a star 🌟
